@@ -2,7 +2,7 @@ import json
 
 import django
 from django import forms
-from django.templatetags.static import static
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
@@ -26,20 +26,20 @@ else:  # django 1.8+
     lookup_override_filename = 'lookup_override.1.8.js'
 
 SELECT2_WIDGET_JS = [
-    static('easy_select2/js/init.js'),
-    static('easy_select2/js/easy_select2.js'),
-    static('easy_select2/js/{}'.format(lookup_override_filename)),
-    static(SELECT2_JS),
+    staticfiles_storage.url('easy_select2/js/init.js'),
+    staticfiles_storage.url('easy_select2/js/easy_select2.js'),
+    staticfiles_storage.url('easy_select2/js/{}'.format(lookup_override_filename)),
+    staticfiles_storage.url(SELECT2_JS),
 ]
 
 if SELECT2_USE_BUNDLED_JQUERY:
     jquery_min_file = 'easy_select2/vendor/jquery/jquery.min.js'
-    SELECT2_WIDGET_JS.insert(0, static(jquery_min_file))
+    SELECT2_WIDGET_JS.insert(0, staticfiles_storage.url(jquery_min_file))
 
 SELECT2_WIDGET_CSS = {
     'screen': [
-        static(SELECT2_CSS),
-        static('easy_select2/css/easy_select2.css'),
+        staticfiles_storage.url(SELECT2_CSS),
+        staticfiles_storage.url('easy_select2/css/easy_select2.css'),
     ],
 }
 
